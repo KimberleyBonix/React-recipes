@@ -1,5 +1,5 @@
-import Home from '../Home';
-import Menu from '../Menu';
+import Home from '../Home/Home';
+import Menu from '../Menu/Menu';
 // import Recipe from '../Recipe';
 // import Error from '../Error';
 
@@ -9,7 +9,7 @@ import './App.scss';
 
 type AppProps = {
   loading?: boolean;
-}
+};
 
 function App({ loading }: AppProps) {
   if (loading) {

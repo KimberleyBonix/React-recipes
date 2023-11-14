@@ -1,6 +1,6 @@
-import Page from '../Page';
-import AppHeader from '../AppHeader';
-import Content from '../Content';
+import Page from '../Page/Page';
+import AppHeader from '../AppHeader/AppHeader';
+import Content from '../Content/Content';
 
 function Error() {
   return (
