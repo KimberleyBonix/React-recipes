@@ -1,5 +1,5 @@
 /* eslint-disable arrow-body-style */
-import { Navigate } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 
 import Page from '../Page/Page';
 import AppHeader from '../AppHeader/AppHeader';
@@ -14,8 +14,11 @@ import { findRecipe } from '../../store/selectors/recipes';
 import './styles.scss';
 
 function Recipe() {
+  const { slug } = useParams();
+  if (!slug) throw new Error('Invalid slug');
+
   const recipe = useAppSelector((state) =>
-    findRecipe(state.recipes.list, 'crepes-raffinees')
+    findRecipe(state.recipes.list, slug)
   );
 
   if (!recipe) {

@@ -1,8 +1,10 @@
+import { RouterProvider } from 'react-router-dom';
+
 import { Provider } from 'react-redux';
 // On importe ReactDom qui nous permettra d'injecter notre application dans le DOM
 import ReactDOM from 'react-dom/client';
-// On importe notre composant principal
-import App from './components/App/App';
+import { router } from './router';
+
 // On importe notre fichier de style global
 import './styles/index.scss';
 
@@ -16,6 +18,6 @@ const root = ReactDOM.createRoot(
 // On injecte notre application dans le DOM
 root.render(
   <Provider store={store}>
-    <App />
+    <RouterProvider router={router} />
   </Provider>
 );
