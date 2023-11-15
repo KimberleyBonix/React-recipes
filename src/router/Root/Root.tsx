@@ -9,6 +9,7 @@ import Loading from '../../components/App/Loading';
 
 function Root() {
   const loading = useAppSelector((state) => state.recipes.loading);
+
   const { pathname } = useLocation();
   useEffect(() => {
     window.scrollTo(0, 0);
