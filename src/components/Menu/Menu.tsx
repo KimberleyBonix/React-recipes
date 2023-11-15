@@ -6,7 +6,6 @@ import { useAppSelector } from '../../hooks/redux';
 function Menu() {
   const recipes = useAppSelector((state) => state.recipes.list);
   return (
-    // className="menu-link menu-link--active"
     <nav className="menu">
       <NavLink
         className={({ isActive }) =>

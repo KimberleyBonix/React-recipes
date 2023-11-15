@@ -19,6 +19,7 @@ export const router = createBrowserRouter([
       {
         path: '/recipe/:slug',
         element: <Recipe />,
+        errorElement: <Error />,
       },
     ],
   },
