@@ -1,20 +1,24 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { Recipe } from '../../@types/recipe';
-import data from '../../data';
+// import data from '../../data';
 
 interface RecipesState {
   list: Recipe[];
+  loading: boolean;
+  error: null | string;
 }
 export const initialState: RecipesState = {
-  list: data,
+  list: [],
+  loading: false,
+  error: null,
 };
 
-export const recipes = createAsyncThunk('recipes/recipes', async () => {
+export const getRecipes = createAsyncThunk('recipes/recipes', async () => {
   const { data } = await axios.get(
     'https://orecipes-api.onrender.com/api/recipes'
   );
-  return data;
+  return data as Recipe[];
 });
 
 const recipesReducer = createSlice({
@@ -23,15 +27,15 @@ const recipesReducer = createSlice({
   reducers: {},
   extraReducers(builder) {
     builder
-      .addCase(recipes.pending, (state) => {
-        console.log('pending');
+      .addCase(getRecipes.pending, (state) => {
+        state.loading = true;
       })
-      .addCase(recipes.rejected, (state) => {
-        console.log('error');
+      .addCase(getRecipes.rejected, (state) => {
+        state.loading = false;
+        state.error = 'Erreur serveur';
       })
-      .addCase(recipes.fulfilled, (state, action) => {
+      .addCase(getRecipes.fulfilled, (state, action) => {
         state.list = action.payload;
-        console.log(action.payload);
       });
   },
 });
