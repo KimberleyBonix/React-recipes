@@ -10,7 +10,7 @@ interface RecipesState {
 }
 export const initialState: RecipesState = {
   list: [],
-  loading: false,
+  loading: true,
   error: null,
 };
 
