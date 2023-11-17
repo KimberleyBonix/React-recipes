@@ -40,7 +40,7 @@ function AppHeader() {
         email={user.credentials.email}
         password={user.credentials.password}
         isLogged={user.logged}
-        loggedMessage={user.loggedMessage}
+        loggedMessage={user.pseudo}
         changeField={changeField}
         handleLogin={handleLogin}
         handleLogout={handleLogout}

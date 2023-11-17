@@ -1,11 +1,15 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import axios from 'axios';
+
 import {
   Credential as TCredentials,
   User as TUser,
-  UserData,
+  UserData as TUserData,
 } from '../../@types/user';
 
+import { axiosInstance } from '../../utils/axios';
+import { LocalStorage } from '../../utils/LocalStorage';
+
+const userData = LocalStorage.getItem('user');
 export const initialState: TUser = {
   logged: false,
   loading: false,
@@ -13,15 +17,16 @@ export const initialState: TUser = {
     email: 'bob@mail.io',
     password: 'bobo',
   },
+  ...userData,
 };
 
 export const login = createAsyncThunk(
   'user/login',
   async (credentials: TCredentials) => {
-    const { data } = await axios.post<UserData>(
-      'https://orecipes-api.onrender.com/api/login',
-      credentials
-    );
+    const { data } = await axiosInstance.post<TUserData>('/login', credentials);
+
+    LocalStorage.setItem('user', data);
+
     return data;
   }
 );
@@ -41,6 +46,7 @@ const userReducer = createSlice({
       state.credentials[field] = value;
     },
     logout(state) {
+      LocalStorage.removeItem('user');
       state.logged = false;
       state.token = undefined;
       state.pseudo = undefined;
@@ -51,7 +57,6 @@ const userReducer = createSlice({
       state.pseudo = action.payload.pseudo;
       state.token = action.payload.token;
       state.logged = true; // ou action.payload.logged (si API mal fait)
-      state.loggedMessage = `Bienvenue ${state.pseudo}`;
     });
   },
 });
