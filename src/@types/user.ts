@@ -6,7 +6,15 @@ export interface Credential {
 export interface User {
   logged: boolean;
   credentials: Credential;
+  pseudo?: string;
+  token?: string;
+  loggedMessage?: string;
+  error?: string;
+  loading: boolean;
+}
+
+export interface UserData {
   pseudo: string;
-  token: null | string;
-  loggedMessage: string;
+  token: string;
+  loadding: boolean;
 }

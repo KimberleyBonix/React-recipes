@@ -1,5 +1,9 @@
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { login, logout } from '../../store/reducers/user';
+import {
+  changeCredentialsFields,
+  login,
+  logout,
+} from '../../store/reducers/user';
 import LoginForm from '../LoginForm/LoginForm';
 import './styles.scss';
 
@@ -7,8 +11,11 @@ function AppHeader() {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user);
 
-  const changeField = (value, name) => {};
-
+  const changeField = (value: string, name: 'email' | 'password') => {
+    // J'emet l'intention de changer la valeur d'un champ
+    // Le nom du champ est ma variable name, et la valeur est ma variable value
+    dispatch(changeCredentialsFields({ field: name, value }));
+  };
   const handleLogin = () => {
     dispatch(
       login({
